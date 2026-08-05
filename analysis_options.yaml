@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+linter:
+  rules:
+    avoid_print: false
+    sort_child_properties_last: true
+    prefer_const_constructors: true
+    always_specify_types: true
+    avoid_positional_boolean_parameters: true
+    require_trailing_commas: true
