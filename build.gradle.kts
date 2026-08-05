@@ -1,29 +1,36 @@
 plugins {
-    id("com.android.application") version "8.3.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.22" apply false
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+android {
+    namespace = "com.example.studymate" // CHANGE THIS to your real package
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.studymate" // CHANGE THIS
+        minSdk = 21
+        targetSdk = 34
+        versionCode = flutter.versionCode.toInteger()
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory
-    .dir("../../build")
-    .get()
-rootProject.layout.buildDirectory.value(newBuildDir)
-
-subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
+flutter {
+    source = "../.."
 }
 
-subprojects {
-    project.evaluationDependsOn(":app")
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.layout.buildDirectory)
-}
+dependencies {}
