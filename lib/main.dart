@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-void main() => runApp(StudyMateApp());
+void main() => runApp(const StudyMateApp());
 
 class StudyMateApp extends StatelessWidget {
+  const StudyMateApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StudyMate AI',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: ChatScreen(),
+      home: const ChatScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<Map<String, String>> _messages = [];
+  final List<Map<String, String>> _messages = <Map<String, String>>[];
   late final GenerativeModel _model;
   bool _isLoading = false;
 
@@ -38,15 +42,15 @@ class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage() async {
     if (_controller.text.isEmpty) return;
     setState(() {
-      _messages.add({'role': 'user', 'text': _controller.text});
+      _messages.add(<String, String>{'role': 'user', 'text': _controller.text});
       _isLoading = true;
     });
-    final prompt = _controller.text;
+    final String prompt = _controller.text;
     _controller.clear();
-    final content = [Content.text('You are StudyMate, a helpful AI tutor. Explain simply: $prompt')];
-    final response = await _model.generateContent(content);
+    final List<Content> content = <Content>[Content.text('You are StudyMate, a helpful AI tutor. Explain simply: $prompt')];
+    final GenerateContentResponse response = await _model.generateContent(content);
     setState(() {
-      _messages.add({'role': 'ai', 'text': response.text?? 'Sorry, no response'});
+      _messages.add(<String, String>{'role': 'ai', 'text': response.text?? 'Sorry, no response'});
       _isLoading = false;
     });
   }
@@ -54,18 +58,18 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('StudyMate AI')),
-      body: Column(children: [
+      appBar: AppBar(title: const Text('StudyMate AI')),
+      body: Column(children: <Widget>[
         Expanded(child: ListView.builder(
           itemCount: _messages.length,
-          itemBuilder: (context, index) {
-            final msg = _messages[index];
+          itemBuilder: (BuildContext context, int index) {
+            final Map<String, String> msg = _messages[index];
             return ListTile(
               title: Align(
                 alignment: msg['role'] == 'user'? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
-                  padding: EdgeInsets.all(12),
-                  margin: EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
                   decoration: BoxDecoration(
                     color: msg['role'] == 'user'? Colors.blue[100] : Colors.grey[200],
                     borderRadius: BorderRadius.circular(12),
@@ -75,13 +79,13 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             );
           },
-        )),
-        if(_isLoading) Padding(padding: EdgeInsets.all(8), child: CircularProgressIndicator()),
-        Row(children: [
-          Expanded(child: TextField(controller: _controller, decoration: InputDecoration(hintText: "Ask StudyMate anything..."))),
-          IconButton(icon: Icon(Icons.send), onPressed: _sendMessage),
-        ]),
-      ]),
+        ),),
+        if(_isLoading) const Padding(padding: EdgeInsets.all(8), child: CircularProgressIndicator()),
+        Row(children: <Widget>[
+          Expanded(child: TextField(controller: _controller, decoration: const InputDecoration(hintText: "Ask StudyMate anything..."))),
+          IconButton(icon: const Icon(Icons.send), onPressed: _sendMessage),
+        ],),
+      ],),
     );
   }
 }
