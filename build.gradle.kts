@@ -1,15 +1,28 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
-    namespace = "com.example.studymate" // CHANGE THIS to your real package
+    namespace = "com.marvinz256.studymate"
     compileSdk = 34
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     defaultConfig {
-        applicationId = "com.example.studymate" // CHANGE THIS
+        // Unique package name for Play Store
+        applicationId = "com.marvinz256.studymate"
+        // Minimum Android version. 21 = Android 5.0
         minSdk = 21
+        // Target latest Android
         targetSdk = 34
         versionCode = flutter.versionCode.toInteger()
         versionName = flutter.versionName
@@ -17,20 +30,12 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            // TODO: Add your own signing config for release build
+            // signingConfig = signingConfigs.getByName("release")
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
 }
 
 flutter {
     source = "../.."
 }
-
-dependencies {}
