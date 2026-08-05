@@ -1,0 +1,7 @@
+include ':app'
+
+def flutterProjectRoot = file('../')
+
+def flutterTools = new File(flutterProjectRoot, 'packages/flutter_tools')
+def pluginLoader = new File(flutterTools, 'gradle/flutter_plugin_loader.gradle')
+apply from: pluginLoader
