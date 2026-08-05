@@ -18,11 +18,8 @@ android {
     }
 
     defaultConfig {
-        // Unique package name for Play Store
         applicationId = "com.marvinz256.studymate"
-        // Minimum Android version. 21 = Android 5.0
         minSdk = 21
-        // Target latest Android
         targetSdk = 34
         versionCode = flutter.versionCode.toInteger()
         versionName = flutter.versionName
@@ -30,8 +27,7 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for release build
-            // signingConfig = signingConfigs.getByName("release")
+            // We will add signing later in Codemagic
         }
     }
 }
