@@ -3,12 +3,14 @@ description: AI Study Assistant
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  google_generative_ai: ^0.2.3
+  google_generative_ai: ^0.4.7
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
 
 flutter:
-  uses-material-design: true 
+  uses-material-design: true
