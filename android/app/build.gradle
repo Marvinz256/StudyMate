@@ -1,0 +1,32 @@
+android { 
+    namespace "com.example.studymate" 
+    compileSdkVersion 34 
+    ndkVersion flutter.ndkVersion 
+ 
+    compileOptions { 
+        sourceCompatibility JavaVersion.VERSION_1_8 
+        targetCompatibility JavaVersion.VERSION_1_8 
+    } 
+ 
+    kotlinOptions { 
+        jvmTarget = '1.8' 
+    } 
+ 
+    defaultConfig { 
+        applicationId "com.example.studymate" 
+        minSdkVersion 21 
+        targetSdkVersion 34 
+        versionCode flutterVersionCode.toInteger() 
+        versionName flutterVersionName 
+    } 
+ 
+    buildTypes { 
+        release { 
+            signingConfig signingConfigs.debug 
+        } 
+    } 
+} 
+ 
+flutter { 
+    source '../..' 
+} 
