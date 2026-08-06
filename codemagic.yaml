@@ -1,13 +1,25 @@
-workflows: 
-  android-release: 
-    name: Android Release 
-    instance_type: mac_mini_m1 
-    max_build_duration: 80 
-    environment: 
-      java: 17 
-      flutter: stable 
-    scripts: 
-      - flutter packages pub get 
-      - flutter build apk --release --split-per-abi 
-    artifacts: 
-      - build/app/outputs/** 
+workflows:
+  studymate-android-release:
+    name: StudyMate Android Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.19.6
+      xcode: 15.2
+      cocoapods: default
+      vars:
+        ANDROID_COMPILE_SDK: "34"
+        ANDROID_BUILD_TOOLS: "34.0.0"
+    scripts:
+      - name: Get dependencies
+        script: |
+          flutter pub get
+      - name: Build APK
+        script: |
+          flutter build apk --release --split-per-abi
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      email:
+        recipients:
+          - edwardsseremba388@gmail.com
